@@ -41,7 +41,10 @@ jobs:
           composer global require tuutti/drupal-test-runner
 
       - name: Setup Drupal
-        run: drupal-tr
+        run: |
+          echo $PATH
+          ls -la $HOME/.config/composer
+          drupal-tr
 
       - name: Run tests
         run: |
