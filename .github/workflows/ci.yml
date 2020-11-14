@@ -29,10 +29,10 @@ jobs:
 
       - name: Build project
         run: |
+          echo PATH="$PATH:$HOME/.composer/vendor/bin" > $PATH
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
-          ln -s $GITHUB_WORKSPACE/drupal-tr /usr/bin/drupal-tr
           drupal-tr
 
       - name: Run PHPUnit tests
