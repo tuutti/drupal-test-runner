@@ -22,6 +22,8 @@ jobs:
         image: mysql:5.7
         ports:
           - 3306:3306
+    env:
+      PATH: ${{ env.PATH }}:${{ env.HOME }}/.composer/vendor/bin
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,8 +37,6 @@ jobs:
           drupal-tr
 
       - name: Run PHPUnit tests
-        env:
-          PATH: ${{ env.PATH }}:${{ env.HOME }}/.composer/vendor/bin
         run: |
           cp -r tests/fixtures/test_module ../drupal/modules
           TEST_RUNNER=core drupal-tr run-tests
