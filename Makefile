@@ -36,7 +36,7 @@ endif
 
 ifeq ($(TEST_RUNNER),phpunit)
 	TEST_RUNNER_BIN ?= $(DRUPAL_ROOT)/vendor/bin/phpunit
-	PHPUNIT_CONFIG_FILE ?= $(DRUPAL_ROOT)/phpunit.xml.dist
+	PHPUNIT_CONFIG_FILE ?= $(SCRIPT_BASE_PATH)/phpunit.xml.dist
 	TEST_RUNNER_ARGS ?= -c $(PHPUNIT_CONFIG_FILE)
 # Filter by testsuites. For example unit,kernel.
 ifdef ($(DRUPAL_TESTSUITES))
