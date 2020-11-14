@@ -33,8 +33,7 @@ jobs:
       - name: Build project
         run: |
           echo $PATH
-          ls -la $HOME/.composer
-          ls -la $HOME/.composer/config
+          ls -la $HOME/.config/composer
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
