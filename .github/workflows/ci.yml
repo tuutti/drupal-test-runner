@@ -32,7 +32,7 @@ jobs:
 
       - name: Build project
         run: |
-          echo "::set-output name=DRUPAL_MODULE_PATH::$GITHUB_WORKSPACE/tests/fixtures/test-module"
+          echo "::set-output name=DRUPAL_MODULE_PATH::${{ github.workspace }}/tests/fixtures/test-module"
           composer global config minimum-stability dev
           composer global config repositories.0 path $DRUPAL_MODULE_PATH
           composer global require tuutti/drupal-test-runner
