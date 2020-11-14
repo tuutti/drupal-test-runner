@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-# Export current path before we resolve symlink
+# Export current path before we resolve the symlink
 export SCRIPT_BASE_PATH=$PWD
 
 SELF_PATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P)/$(basename -- $0)

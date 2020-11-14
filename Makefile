@@ -20,7 +20,8 @@ DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(DR
 
 ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_BIN ?= cd $(DRUPAL_ROOT) && $(PHP_BINARY) ./core/scripts/run-tests.sh
-	TEST_RUNNER_ARGS ?= --color --verbose
+	# Make sure test runner uses correct PHP binary.
+	TEST_RUNNER_ARGS ?= --color --verbose --php $(PHP_BINARY)
 ifneq ($(SIMPLETEST_BASE_URL),)
 	DRUPAL_BASE_URL = $(SIMPLETEST_BASE_URL)
 endif
@@ -28,7 +29,7 @@ ifneq ($(DRUPAL_BASE_URL),)
 	TEST_RUNNER_ARGS += --url $(DRUPAL_BASE_URL)
 endif
 # Filter by testsuites. For example PHPUnit-Unit,PHPUnit-Kernel.
-ifdef ($(DRUPAL_TESTSUITES))
+ifneq ($(DRUPAL_TESTSUITES),)
 	TEST_RUNNER_ARGS += --types $(DRUPAL_TESTSUITES)
 endif
 endif

@@ -36,7 +36,6 @@ $(DRUPAL_ROOT)/composer.json:
 PHONY += set-composer-repositories
 set-composer-repositories:
 	$(call step, Set Composer repositories)
-	@echo $(SCRIPT_BASE_PATH)
 	$(call run_in_drupal, $(COMPOSER) config repositories.0 path $(DRUPAL_MODULE_PATH))
 
 PHONY += set-composer-repositories
