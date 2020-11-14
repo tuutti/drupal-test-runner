@@ -32,14 +32,19 @@ jobs:
 
       - name: Build project
         run: |
+          echo $PATH
+          echo $COMPOSER_HOME
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
           drupal-tr
 
-      - name: Run PHPUnit tests
+      - name: Symlink module and update paths
         run: |
-          echo "DRUPAL_MODULE_PATH=tests/fixtures/test_module" >> $DRUPAL_MODULE_PATH
           ln -s tests/fixtures/test_module ../drupal/modules
+          echo "DRUPAL_MODULE_PATH=tests/fixtures/test_module" >> $DRUPAL_MODULE_PATH
+
+      - name: Run tests
+        run: |
           TEST_RUNNER=core drupal-tr run-tests
           TEST_RUNNER=phpunit drupal-tr run-tests
