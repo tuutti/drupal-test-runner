@@ -22,9 +22,6 @@ jobs:
         image: mysql:5.7
         ports:
           - 3306:3306
-    env:
-      DRUPAL_ROOT: ${{ github.workspace }}/../drupal
-      DRUPAL_MODULE_PATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -40,5 +37,6 @@ jobs:
 
       - name: Run PHPUnit tests
         run: |
-          cp -r tests/fixtures/test_module $DRUPAL_ROOT/modules
-          make run-tests
+          cp -r tests/fixtures/test_module ../drupal/modules
+          TEST_RUNNER=core make run-tests
+          TEST_RUNNER=phpunit make run-tests
