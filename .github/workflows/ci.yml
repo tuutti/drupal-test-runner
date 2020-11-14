@@ -47,8 +47,6 @@ jobs:
 
       - name: Setup Drupal
         run: |
-          echo $PATH
-          ls -la $HOME/.config/composer
           drupal-tr
 
       - name: Run tests
