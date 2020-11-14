@@ -1,8 +1,5 @@
 PHONY :=
 COMPOSER := $(shell which composer.phar 2>/dev/null || which composer 2>/dev/null)
-# Call drush to see if it fails (if we're running Drush launcher for example) and fallback
-# to vendor/bin/drush target to indicate that drush needs to be installed with composer.
-DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(ROOT)/vendor/bin/drush")
 # Allowed values = contrib, project
 # this determines what makefile we use to install project and dependencies
 TEST_TYPE ?= contrib
@@ -10,6 +7,16 @@ TEST_TYPE ?= contrib
 TEST_RUNNER ?= phpunit
 PHP_BINARY ?= $(shell which php 2>/dev/null)
 DRUPAL_DB_URL ?= $(SIMPLETEST_DB)
+
+ifeq ($(SCRIPT_BASE_PATH),)
+$(error "SCRIPT_BASE_PATH argument not set")
+endif
+
+DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
+#
+# Call drush to see if it fails (if we're running Drush launcher for example) and fallback
+# to vendor/bin/drush target to indicate that drush needs to be installed with composer.
+DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(DRUPAL_ROOT)/vendor/bin/drush")
 
 ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS ?= --color --verbose
