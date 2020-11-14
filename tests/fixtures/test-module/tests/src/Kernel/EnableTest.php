@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\helfi_tpr\Kernel;
+namespace Drupal\Tests\test_module\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 

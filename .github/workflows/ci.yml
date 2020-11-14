@@ -32,7 +32,8 @@ jobs:
 
       - name: Build project
         run: |
-          echo "DRUPAL_MODULE_PATH=tests/fixtures/test_module" >> $DRUPAL_MODULE_PATH
+          # Override the default module path to use our test_module.
+          echo "DRUPAL_MODULE_PATH=tests/fixtures/test-module" >> $DRUPAL_MODULE_PATH
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
