@@ -1,0 +1,11 @@
+{
+    "name": "tuutti/drupal-test-runner",
+    "description": "Tool to run Drupal tests",
+    "authors": [
+        {
+            "name": "tuutti",
+            "email": "tuutti@iki.fi"
+        }
+    ],
+    "require": {}
+}
