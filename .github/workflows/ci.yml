@@ -6,8 +6,6 @@ env:
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
   DRUPAL_MODULE_NAME: "test_module"
   DRUPAL_CORE_VERSION: 9.0.x
-    # Override the default module path to use our test_module.
-  DRUPAL_MODULE_PATH: tests/fixtures/test-module
 jobs:
   test-contrib:
     runs-on: ubuntu-latest
@@ -34,8 +32,9 @@ jobs:
 
       - name: Build project
         run: |
+          export DRUPAL_MODULE_PATH=$GITHUB_WORKSPACE/tests/fixtures/test-module
           composer global config minimum-stability dev
-          composer global config repositories.0 path $GITHUB_WORKSPACE
+          composer global config repositories.0 path $DRUPAL_MODULE_PATH
           composer global require tuutti/drupal-test-runner
           drupal-tr
 
