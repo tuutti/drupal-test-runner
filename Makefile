@@ -1,6 +1,5 @@
 PHONY :=
 COMPOSER := $(shell which composer.phar 2>/dev/null || which composer 2>/dev/null)
-DRUPAL_ROOT ?=
 # Call drush to see if it fails (if we're running Drush launcher for example) and fallback
 # to vendor/bin/drush target to indicate that drush needs to be installed with composer.
 DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(ROOT)/vendor/bin/drush")
