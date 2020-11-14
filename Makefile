@@ -19,6 +19,7 @@ DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
 DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(DRUPAL_ROOT)/vendor/bin/drush")
 
 ifeq ($(TEST_RUNNER),core)
+	TEST_RUNNER_BIN ?= cd $(DRUPAL_ROOT) && $(PHP_BINARY) ./core/scripts/run-tests.sh
 	TEST_RUNNER_ARGS ?= --color --verbose
 ifneq ($(SIMPLETEST_BASE_URL),)
 	DRUPAL_BASE_URL = $(SIMPLETEST_BASE_URL)
@@ -30,7 +31,6 @@ endif
 ifdef ($(DRUPAL_TESTSUITES))
 	TEST_RUNNER_ARGS += --types $(DRUPAL_TESTSUITES)
 endif
-	TEST_RUNNER_BIN ?= cd $(DRUPAL_ROOT) && $(PHP_BINARY) ./core/scripts/run-tests.sh
 endif
 
 ifeq ($(TEST_RUNNER),phpunit)
