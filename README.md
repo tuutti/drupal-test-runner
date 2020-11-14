@@ -10,7 +10,7 @@ Provides a list of `make` commands to install and test Drupal.
 - composer
 - git (\*)
 
-\* Only contrib-installer.
+(\*): Only contrib-installer.
 
 ## Installation
 
@@ -24,5 +24,8 @@ drupal-test-runner provides two different installers:
 
 ### 1. Contrib
 
+@todo
 
 ### 2. Project
+
+@todo

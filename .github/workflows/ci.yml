@@ -1,0 +1,41 @@
+on: [push]
+name: CI
+env:
+  MYSQL_ROOT_PASSWORD: drupal
+  SIMPLETEST_DB: "mysql://root:drupal@db:3306/drupal"
+  SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
+  DRUPAL_MODULE_NAME: "api_tools"
+  DRUPAL_CORE_VERSION: 9.0.x
+  DRUPAL_ROOT: /home/root
+  DRUPAL_MODULE_PATH: ${{ github.workspace }}
+jobs:
+  test-contrib:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        #php-version: ['7.2', '7.3', '7.4']
+        php-version: ['7.4']
+    container:
+      image: ghcr.io/tuutti/drupal-php-docker:${{ matrix.php-version }}
+
+    services:
+      db:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build project
+        run: |
+          composer global repositories.0 path $GITHUB_WORKSPACE
+          composer require tuutti/drupal-test-runner
+          make
+
+      - name: Run PHPUnit tests
+        run: |
+          cp -r tests/fixtures/test_module $DRUPAL_ROOT/modules
+          make run-tests

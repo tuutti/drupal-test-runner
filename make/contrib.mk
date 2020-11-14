@@ -2,16 +2,16 @@ DRUPAL_CORE ?= 9.0.x
 DRUPAL_ROOT ?= $(shell pwd)/../drupal
 DRUPAL_MODULE_PATH ?= $(shell pwd)
 
-ifeq ($(DRUPAL_MODULE),)
-$(error "DRUPAL_MODULE argument not set")
+ifeq ($(DRUPAL_MODULE_NAME),)
+$(error "DRUPAL_MODULE_NAME argument not set")
 endif
 
 ifndef ($(DRUPAL_TEST_GROUPS))
-	DRUPAL_TEST_GROUPS = $(DRUPAL_MODULE)
+	DRUPAL_TEST_GROUPS = $(DRUPAL_MODULE_NAME)
 endif
 
 ifeq ($(TEST_RUNNER),phpunit)
-	TEST_RUNNER_ARGS += --group $(DRUPAL_MODULE)
+	TEST_RUNNER_ARGS += --group $(DRUPAL_MODULE_NAME)
 endif
 
 ifeq ($(TEST_RUNNER),core)
@@ -28,11 +28,11 @@ $(DRUSH):
 $(DRUPAL_ROOT)/sites/default/settings.php:
 	$(call step, Installing Drupal)
 	$(call run_in_drupal, $(DRUSH) --yes -v site-install minimal --db-url="$(DRUPAL_DB_URL)")
-	$(call run_in_drupal, $(DRUSH) en $(DRUPAL_MODULE) simpletest)
+	$(call run_in_drupal, $(DRUSH) en $(DRUPAL_MODULE_NAME) simpletest)
 
 $(DRUPAL_ROOT)/composer.json:
 	$(call step, Cloning Drupal core)
-	git clone --depth 1 --branch "$(DRUPAL_CORE)" http://git.drupal.org/project/drupal.git/ $(DRUPAL_ROOT)
+	git clone --depth 1 --branch "$(DRUPAL_CORE_VERSION)" http://git.drupal.org/project/drupal.git/ $(DRUPAL_ROOT)
 
 PHONY += set-composer-repositories
 set-composer-repositories:
@@ -43,5 +43,5 @@ PHONY += set-composer-repositories
 composer-install:
 	$(call step, Install composer dependencies)
 	$(call run_in_drupal, $(COMPOSER) install)
-	$(call run_in_drupal, $(COMPOSER) require drupal/$(DRUPAL_MODULE))
+	$(call run_in_drupal, $(COMPOSER) require drupal/$(DRUPAL_MODULE_NAME))
 

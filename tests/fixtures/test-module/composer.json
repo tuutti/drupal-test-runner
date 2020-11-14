@@ -1,0 +1,11 @@
+{
+    "name": "drupal/test_module",
+    "description": "Test module",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+        "drupal/coder": "^8.3"
+    }
+}
