@@ -29,8 +29,7 @@ jobs:
 
       - name: Build project
         run: |
-          echo $GITHUB_WORKSPACE
-          ls -la $GITHUB_WORKSPACE
+          composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
           make

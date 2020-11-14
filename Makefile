@@ -15,6 +15,8 @@ ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS ?= --color --verbose
 ifdef ($(DRUPAL_BASE_URL))
 	TEST_RUNNER_ARGS += --url $(DRUPAL_BASE_URL)
+else ifdef ($(SIMPLETEST_BASE_URL))
+	TEST_RUNNER_ARGS += --url $(SIMPLETEST_BASE_URL)
 endif
 # Filter by testsuites. For example PHPUnit-Unit,PHPUnit-Kernel.
 ifdef ($(DRUPAL_TESTSUITES))
