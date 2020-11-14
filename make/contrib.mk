@@ -1,6 +1,5 @@
-DRUPAL_CORE ?= 9.0.x
-DRUPAL_ROOT ?= $(shell pwd)/../drupal
-DRUPAL_MODULE_PATH ?= $(shell pwd)
+DRUPAL_CORE_VERSION ?= 9.0.x
+DRUPAL_MODULE_PATH ?= $(SCRIPT_BASE_PATH)
 
 ifeq ($(DRUPAL_MODULE_NAME),)
 $(error "DRUPAL_MODULE_NAME argument not set")
@@ -36,7 +35,7 @@ $(DRUPAL_ROOT)/composer.json:
 
 PHONY += set-composer-repositories
 set-composer-repositories:
-	$(call step, Set $(COMPOSER) repositories)
+	$(call step, Set Composer repositories)
 	$(call run_in_drupal, $(COMPOSER) config repositories.0 path $(DRUPAL_MODULE_PATH))
 
 PHONY += set-composer-repositories

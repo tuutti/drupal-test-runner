@@ -1,11 +1,16 @@
 {
     "name": "tuutti/drupal-test-runner",
     "description": "Tool to run Drupal tests",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "tuutti",
             "email": "tuutti@iki.fi"
         }
     ],
-    "require": {}
+    "bin": [
+      "drupal-tr"
+    ]
 }
