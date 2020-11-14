@@ -32,6 +32,7 @@ jobs:
 
       - name: Build project
         run: |
+          echo "DRUPAL_MODULE_PATH=tests/fixtures/test_module" >> $DRUPAL_MODULE_PATH
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
@@ -40,10 +41,8 @@ jobs:
       - name: Symlink module and update paths
         run: |
           ln -s tests/fixtures/test_module ../drupal/modules
-          echo "DRUPAL_MODULE_PATH=tests/fixtures/test_module" >> $DRUPAL_MODULE_PATH
 
       - name: Run tests
         run: |
-          export DRUPAL_MODULE_PATH=tests/fixtures/test_module
           TEST_RUNNER=core drupal-tr run-tests
           TEST_RUNNER=phpunit drupal-tr run-tests
