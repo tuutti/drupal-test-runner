@@ -31,7 +31,9 @@ jobs:
         run: echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
       - name: Set DRUPAL_MODULE_PATH
-        run: "echo DRUPAL_MODULE_PATH=$GITHUB_WORKSPACE/tests/fixtures/test-module" >> $GITHUB_ENV
+        # We need to override DRUPAL_MODULE_PATH to use our custom test module since the
+        # repository itself is not a Drupal module.
+        run: echo "DRUPAL_MODULE_PATH=$GITHUB_WORKSPACE/tests/fixtures/test-module" >> $GITHUB_ENV
 
       - name: Build project
         run: |
