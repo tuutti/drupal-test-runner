@@ -32,6 +32,7 @@ jobs:
 
       - name: Build project
         run: |
+          composer global config --list
           ls -la $HOME
           ls -la $HOME/.config/composer
           composer global config minimum-stability dev
