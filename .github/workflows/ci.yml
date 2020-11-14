@@ -22,14 +22,14 @@ jobs:
         image: mysql:5.7
         ports:
           - 3306:3306
-    env:
-      PATH: ${{ env.PATH }}:${{ env.HOME }}/.composer/vendor/bin
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
 
       - name: Build project
+        env:
+          PATH: ${{ env.PATH }}:${{ env.HOME }}/.composer/vendor/bin
         run: |
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
