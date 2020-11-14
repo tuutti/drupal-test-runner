@@ -34,16 +34,14 @@ jobs:
           echo "DRUPAL_MODULE_PATH=$GITHUB_WORKSPACE/tests/fixtures/test-module" >> $GITHUB_ENV
           echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
-      - name: Build project
+      - name: Setup Drupal test runner
         run: |
           composer global config minimum-stability dev
           composer global config repositories.0 path $DRUPAL_MODULE_PATH
           composer global require tuutti/drupal-test-runner
-          drupal-tr
 
-      - name: Symlink module and update paths
-        run: |
-          ln -s tests/fixtures/test_module ../drupal/modules
+      - name: Setup Drupal
+        run: drupal-tr
 
       - name: Run tests
         run: |
