@@ -29,7 +29,7 @@ jobs:
 
       - name: Build project
         run: |
-          echo PATH="$PATH:$HOME/.composer/vendor/bin" > $PATH
+          echo "$COMPOSER_HOME/.composer/vendor/bin" >> $GITHUB_PATH
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
@@ -37,6 +37,7 @@ jobs:
 
       - name: Run PHPUnit tests
         run: |
-          cp -r tests/fixtures/test_module ../drupal/modules
+          echo DRUPAL_MODULE_PATH="tests/fixtures/test_module" > $DRUPAL_MODULE_PATH
+          ln -s tests/fixtures/test_module ../drupal/modules
           TEST_RUNNER=core drupal-tr run-tests
           TEST_RUNNER=phpunit drupal-tr run-tests
