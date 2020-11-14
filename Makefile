@@ -13,17 +13,18 @@ $(error "SCRIPT_BASE_PATH argument not set")
 endif
 
 DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
-#
+
 # Call drush to see if it fails (if we're running Drush launcher for example) and fallback
 # to vendor/bin/drush target to indicate that drush needs to be installed with composer.
 DRUSH := $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(DRUPAL_ROOT)/vendor/bin/drush")
 
 ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS ?= --color --verbose
-ifdef ($(DRUPAL_BASE_URL))
+ifneq ($(SIMPLETEST_BASE_URL),)
+	DRUPAL_BASE_URL = $(SIMPLETEST_BASE_URL)
+endif
+ifneq ($(DRUPAL_BASE_URL),)
 	TEST_RUNNER_ARGS += --url $(DRUPAL_BASE_URL)
-else ifdef ($(SIMPLETEST_BASE_URL))
-	TEST_RUNNER_ARGS += --url $(SIMPLETEST_BASE_URL)
 endif
 # Filter by testsuites. For example PHPUnit-Unit,PHPUnit-Kernel.
 ifdef ($(DRUPAL_TESTSUITES))
