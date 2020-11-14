@@ -28,9 +28,9 @@ jobs:
           fetch-depth: 1
 
       - name: Set variables
+        # We need to override DRUPAL_MODULE_PATH to use our custom test module since the
+        # repository itself is not a Drupal module.
         run: |
-          # We need to override DRUPAL_MODULE_PATH to use our custom test module since the
-          # repository itself is not a Drupal module.
           echo "DRUPAL_MODULE_PATH=$GITHUB_WORKSPACE/tests/fixtures/test-module" >> $GITHUB_ENV
           echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
