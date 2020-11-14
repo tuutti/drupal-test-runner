@@ -28,12 +28,13 @@ jobs:
           fetch-depth: 1
 
       - name: Set env variables
-        run: echo "$COMPOSER_HOME/.composer/vendor/bin" >> $GITHUB_PATH
+        run: echo "$HOME/.composer/vendor/bin" >> $GITHUB_PATH
 
       - name: Build project
         run: |
           echo $PATH
-          echo $COMPOSER_HOME
+          ls -la $HOME/.composer
+          ls -la $HOME/.composer/config
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
