@@ -10,5 +10,7 @@
             "email": "tuutti@iki.fi"
         }
     ],
-    "require": {}
+    "bin": [
+      "drupal-tr"
+    ]
 }

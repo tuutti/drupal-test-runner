@@ -27,7 +27,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Set env variables
+      - name: Add composer bin to PATH
         run: echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
       - name: Build project
