@@ -2,7 +2,7 @@ on: [push]
 name: CI
 env:
   MYSQL_ROOT_PASSWORD: drupal
-  SIMPLETEST_DB: "mysql://root:drupal@db:3306/drupal"
+  SIMPLETEST_DB: "mysql://drupal:drupal@mariadb:3306/drupal"
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
   DRUPAL_MODULE_NAME: "test_module"
   DRUPAL_CORE_VERSION: 9.0.x
@@ -18,8 +18,13 @@ jobs:
       image: ghcr.io/tuutti/drupal-php-docker:${{ matrix.php-version }}
 
     services:
-      db:
-        image: mysql:5.7
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MYSQL_USER: drupal
+          MYSQL_PASSWORD: drupal
+          MYSQL_DATABASE: drupal
+          MYSQL_ROOT_PASSWORD: drupal
         ports:
           - 3306:3306
     steps:
