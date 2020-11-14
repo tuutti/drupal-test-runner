@@ -28,11 +28,11 @@ jobs:
           fetch-depth: 1
 
       - name: Set env variables
-        run: echo "$HOME/.composer/vendor/bin" >> $GITHUB_PATH
+        run: echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
       - name: Build project
         run: |
-          echo $PATH
+          ls -la $HOME
           ls -la $HOME/.config/composer
           composer global config minimum-stability dev
           composer global config repositories.0 path $GITHUB_WORKSPACE
