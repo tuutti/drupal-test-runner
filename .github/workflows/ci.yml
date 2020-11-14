@@ -31,7 +31,7 @@ jobs:
 
       - name: Build project
         run: |
-          composer global repositories.0 path $GITHUB_WORKSPACE
+          composer global config repositories.0 path $GITHUB_WORKSPACE
           composer require tuutti/drupal-test-runner
           make
 
