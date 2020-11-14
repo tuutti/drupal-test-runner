@@ -10,6 +10,7 @@ TEST_TYPE ?= contrib
 # Allowed values = phpunit, core
 TEST_RUNNER ?= phpunit
 PHP_BINARY ?= $(shell which php 2>/dev/null)
+DRUPAL_DB_URL ?= $(SIMPLETEST_DB)
 
 ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS ?= --color --verbose
