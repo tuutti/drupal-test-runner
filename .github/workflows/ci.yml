@@ -51,7 +51,8 @@ jobs:
           drupal-tr
           cp $GITHUB_WORKSPACE/tests/contrib/phpunit.xml.dist $PHPUNIT_CONFIG_FILE
 
-      - name: Run tests
-        run: |
-          TEST_RUNNER=core drupal-tr run-tests
-          TEST_RUNNER=phpunit drupal-tr run-tests
+      - name: Run tests using core test runner
+        run: TEST_RUNNER=core drupal-tr run-tests
+
+      - name: Run tests using phpunit test runner
+        run: TEST_RUNNER=phpunit drupal-tr run-tests
