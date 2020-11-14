@@ -32,7 +32,7 @@ jobs:
           echo $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE
           composer global config repositories.0 path $GITHUB_WORKSPACE
-          composer require tuutti/drupal-test-runner
+          composer global require tuutti/drupal-test-runner
           make
 
       - name: Run PHPUnit tests
