@@ -1,5 +1,24 @@
 #!/bin/bash
 
 set -e
-cd "$(dirname "$0")"
+
+SELF_PATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P)/$(basename -- $0)
+
+# Resolves symlink from composer's bin directory to the actual
+# library folder so we can include our makefiles.
+while [ -h "$SELF_PATH" ]; do
+  # 1) cd to directory of the symlink
+  # 2) cd to the directory of where the symlink points
+  # 3) Get the pwd
+  # 4) Append the basename
+  DIR=$(dirname -- "$SELF_PATH")
+  SYM=$(readlink "$SELF_PATH")
+  SYM_DIRNAME=$(dirname -- "$SYM")
+  SELF_PATH=$(cd "$DIR" && cd "$SYM_DIRNAME" && pwd -P)/$(basename -- "$SYM")
+done
+
+SELF_PATH=$(dirname -- "$SELF_PATH")
+
+cd $SELF_PATH
+
 make $@
