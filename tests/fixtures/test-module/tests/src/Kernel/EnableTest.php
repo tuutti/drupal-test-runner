@@ -33,7 +33,7 @@ class EnableTest extends KernelTestBase {
    * Test that we've enabled our module.
    */
   public function testModule() : void {
-    $this->assertNotNull($this->config('system.site')->get('name'));
+    $this->assertNotNull($this->config('core.extension')->get('module'));
   }
 
 }
