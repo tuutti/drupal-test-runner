@@ -37,7 +37,7 @@ jobs:
       - name: Setup Drupal test runner
         run: |
           composer global config minimum-stability dev
-          composer global config repositories.0 path $DRUPAL_MODULE_PATH
+          composer global config repositories.0 path $GITHUB_WORKSPACE
           composer global require tuutti/drupal-test-runner
 
       - name: Setup Drupal
