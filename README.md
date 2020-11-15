@@ -23,10 +23,10 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `DRUPAL_DB_URL` | | Y | The database url, for example `mysql://drupal:drupal@localhost/drupal` |
-| `TEST_TYPE` | `contrib` | Y | The test type (contrib or project) | 
+| `TEST_TYPE` | `contrib` | Y | The test type (contrib or project) |
 | `TEST_RUNNER`| `phpunit` | Y | The test runner (phpunit or core) |
 | `PHP_BINARY` | `$(which php)` | Y | Path to PHP binary |
-| `DRUSH` | `$(which drush)`, fallbacks to `vendor/bin/drush` | Y | Path to drush binary |
+| `DRUSH` | `$(which drush)`, fallbacks to `vendor/bin/drush` | Y | Path to drush binary. If Drush is not found it will be installed with composer |
 | `DRUPAL_BASE_URL` | Fallbacks to `SIMPLETEST_BASE_URL` if set | N | The base url (required for functional tests) |
 | `SIMPLETEST_BASE_URL` | | N | Same as `DRUPAL_BASE_URL` |
 
@@ -49,15 +49,44 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 
 ### Test type `contrib`
 
+Use `contrib` test type when testing something that is not packaged with Drupal core, like Drupal modules or themes. Core version is determined by `DRUPAL_CORE_VERSION` variable and will be installed to given `DRUPAL_ROOT`.
+
+Your `DRUPAL_MODULE_PATH` (git root by default) will be added to composer.json `repositories` automatically and installed with `composer require drupal/$DRUPAL_MODULE_NAME`. For this to work your package needs to have a composer.json file containing `type` and `name` values starting with `drupal`, for example:
+
+```json
+{
+  "name": "drupal/your_module",
+  "type": "drupal-module"
+}
+
+```
+See [composer/installers](https://github.com/composer/installers) for available types.
+
+*NOTE*: `DRUPAL_ROOT` cannot be inside the `DRUPAL_MODULE_PATH` folder. By default it's set to `git root/../drupal`.
+
+#### Usage
+
+Running `drupal-tr` will execute `make install` using [make/contrib.mk](make/contrib.mk). This will:
+
+- Install the Drupal to `DRUPAL_ROOT` path if `DRUPAL_ROOT/composer.json` file is not present
+- Install Drush with composer if `drush` executable is not found
+- Set `DRUPAL_MODULE_PATH` path to composer.json's repositories
+- Run composer install
+- Install Drupal core using `DRUPAL_INSTALL_PROFILE` (minimal by default) if `DRUPAL_ROOT/sites/default/settings.php` file is not present
+
+#### Contrib configuration
+
 | Variable name | Default value | Required | Descriptiion |
 |---------------|---|---| -- |
 | `DRUPAL_MODULE_NAME` | | Y | The name of module to test |
+| `DRUPAL_INSTALL_PROFILE` | minimal | The install profile to install Drupal with |
 | `DRUPAL_ROOT` | `git root/../drupal` | N | The path where Drupal will be installed |
 | `DRUPAL_CORE_VERSION` | 9.0.x | Y | The core version |
-| `DRUPAL_MODULE_PATH` | `git root` | Y | Path to the module | 
+| `DRUPAL_MODULE_PATH` | `git root` | Y | Path to the module |
 | `DRUPAL_TEST_GROUPS` | `$DRUPAL_MODULE_NAME ` | Y | The test groups. Comma separated list of group names (from `@group` annotation) |
 
-Example Github actions:
+
+#### Github actions example
 
 `.github/workflows/ci.yml`:
 ```yml

@@ -1,5 +1,6 @@
 DRUPAL_CORE_VERSION ?= 9.0.x
 DRUPAL_MODULE_PATH ?= $(SCRIPT_BASE_PATH)
+DRUPAL_INSTALL_PROFILE ?= minimal
 
 ifeq ($(DRUPAL_MODULE_NAME),)
 $(error "DRUPAL_MODULE_NAME argument not set")
@@ -26,7 +27,7 @@ $(DRUSH):
 
 $(DRUPAL_ROOT)/sites/default/settings.php:
 	$(call step, Installing Drupal)
-	$(call run_in_drupal, $(DRUSH) --yes -v site-install minimal --db-url="$(DRUPAL_DB_URL)")
+	$(call run_in_drupal, $(DRUSH) --yes -v site-install $(DRUPAL_INSTALL_PROFILE) --db-url="$(DRUPAL_DB_URL)")
 	$(call run_in_drupal, $(DRUSH) en $(DRUPAL_MODULE_NAME) simpletest)
 
 $(DRUPAL_ROOT)/composer.json:
