@@ -15,7 +15,6 @@ endif
 DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
 
 ifeq ($(TEST_RUNNER),core)
-	TEST_RUNNER_BIN ?= cd $(DRUPAL_ROOT) && $(PHP_BINARY) ./core/scripts/run-tests.sh
 	# Make sure test runner uses correct PHP binary.
 	TEST_RUNNER_ARGS ?= --color --verbose --php $(PHP_BINARY)
 ifneq ($(SIMPLETEST_BASE_URL),)
@@ -31,7 +30,6 @@ endif
 endif
 
 ifeq ($(TEST_RUNNER),phpunit)
-	TEST_RUNNER_BIN ?= $(DRUPAL_ROOT)/vendor/bin/phpunit
 	TEST_RUNNER_ARGS ?= -c $(PHPUNIT_CONFIG_FILE)
 	PHPUNIT_CONFIG_FILE ?= $(SCRIPT_BASE_PATH)/phpunit.xml.dist
 # Filter by testsuites. For example unit,kernel.

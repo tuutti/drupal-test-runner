@@ -10,15 +10,16 @@ else
 endif
 
 # Add test groups if defined.
-ifndef ($(DRUPAL_TEST_GROUPS))
+ifdef ($(DRUPAL_TEST_GROUPS))
 
 ifeq ($(TEST_RUNNER),phpunit)
-	TEST_RUNNER_ARGS += --group $(DRUPAL_MODULE_NAME)
+	TEST_RUNNER_ARGS += --group $(DRUPAL_TEST_GROUPS)
 endif
 
 ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS += $(DRUPAL_TEST_GROUPS)
 endif
+
 endif
 
 install: $(INSTALL_TARGETS)
