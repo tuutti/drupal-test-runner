@@ -10,7 +10,7 @@ else
 endif
 
 # Add test groups if defined.
-ifdef ($(DRUPAL_TEST_GROUPS))
+ifneq ($(DRUPAL_TEST_GROUPS),)
 
 ifeq ($(TEST_RUNNER),phpunit)
 	TEST_RUNNER_ARGS += --group $(DRUPAL_TEST_GROUPS)
