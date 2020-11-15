@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/tuutti/drupal-test-runner/workflows/CI/badge.svg)](https://github.com/tuutti/drupal-test-runner/actions)
 
-Provides a collection of `make` commands to make testing Drupal easier.
+Provides a set of tools to make testing Drupal easier.
 
 ## Requirements
 
@@ -13,9 +13,9 @@ Provides a collection of `make` commands to make testing Drupal easier.
 
 ## Installation
 
-`$ composer global require tuutti/drupal-test-runner ~1.0`
+`$ composer global require tuutti/drupal-test-runner ^1.0`
 
-This will create `drupal-tr` command that works as a wrapper for our make commands. You can either call it directly
+This will create `drupal-tr` executable that works as a wrapper for our make commands. You can either call it directly
 from composer's binary folder or add composer's global bin dir to your `$PATH` variable: `PATH="$PATH:$HOME/.composer/vendor/bin"`.
 
 ## Configuration
@@ -23,33 +23,31 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `DRUPAL_DB_URL` | | Y | The database url, for example `mysql://drupal:drupal@localhost/drupal` |
-| `TEST_TYPE` | `contrib` | Y | The test type (contrib or project) |
+| `INSTALLER_TYPE` | `contrib` | Y | The test type (contrib or project) |
 | `TEST_RUNNER`| `phpunit` | Y | The test runner (phpunit or core) |
 | `PHP_BINARY` | `$(which php)` | Y | Path to PHP binary |
 | `DRUSH` | `$(which drush)`, fallbacks to `vendor/bin/drush` | Y | Path to drush binary. If Drush is not found it will be installed with composer |
 | `DRUPAL_BASE_URL` | Fallbacks to `SIMPLETEST_BASE_URL` if set | N | The base url (required for functional tests) |
 | `SIMPLETEST_BASE_URL` | | N | Same as `DRUPAL_BASE_URL` |
 
-### PHPUnit
+### Test runners
+
+#### PHPUnit
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `PHPUNIT_CONFIG_FILE` | `git root/phpunit.xml.dist` | N | Path to phpunit config file |
 | `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `unit` or `kernel` |
 
-### Core's test runner
+#### Core (run-tests.sh)
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `PHPUnit-Kernel` |
 
-## Usage
+## Contrib installer
 
-`drupal-test-runner` provides two different installers `contrib` and `project`.
-
-### Test type `contrib`
-
-Use `contrib` test type when testing something that is not packaged with Drupal core, like Drupal modules or themes. Core version is determined by `DRUPAL_CORE_VERSION` variable and will be installed to given `DRUPAL_ROOT`.
+Use `contrib` when testing something that is not packaged with Drupal core, like Drupal modules or themes. Core version is determined by `DRUPAL_CORE_VERSION` variable and will be installed to given `DRUPAL_ROOT`.
 
 Your `DRUPAL_MODULE_PATH` (git root by default) will be added to composer.json `repositories` automatically and installed with `composer require drupal/$DRUPAL_MODULE_NAME`. For this to work your package needs to have a composer.json file containing `type` and `name` values starting with `drupal`, for example:
 
@@ -64,7 +62,7 @@ See [composer/installers](https://github.com/composer/installers) for available 
 
 *NOTE*: `DRUPAL_ROOT` cannot be inside the `DRUPAL_MODULE_PATH` folder. By default it's set to `git root/../drupal`.
 
-#### Usage
+### Usage
 
 Running `drupal-tr` will execute `make install` using [make/contrib.mk](make/contrib.mk). This will:
 
@@ -138,6 +136,6 @@ jobs:
         run: TEST_RUNNER=core drupal-tr run-tests
 ```
 
-### 2. Test type `project`
+## Project installer
 
 @todo

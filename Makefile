@@ -2,7 +2,7 @@ PHONY :=
 COMPOSER := $(shell which composer.phar 2>/dev/null || which composer 2>/dev/null)
 # Allowed values = contrib, project
 # this determines what makefile we use to install project and dependencies
-TEST_TYPE ?= contrib
+INSTALLER_TYPE ?= contrib
 # Allowed values = phpunit, core
 TEST_RUNNER ?= phpunit
 PHP_BINARY ?= $(shell which php 2>/dev/null)
@@ -44,7 +44,7 @@ ifdef ($(DRUPAL_TESTSUITES))
 endif
 endif
 
-include make/$(TEST_TYPE).mk
+include make/$(INSTALLER_TYPE).mk
 include make/tests.mk
 
 ifeq ($(DRUPAL_DB_URL),)
