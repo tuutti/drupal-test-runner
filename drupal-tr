@@ -23,4 +23,4 @@ SELF_PATH=$(dirname -- "$SELF_PATH")
 
 cd $SELF_PATH
 
-make $@
+make -e $@

@@ -23,7 +23,7 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `DRUPAL_DB_URL` | | Y | The database url, for example `mysql://drupal:drupal@localhost/drupal` |
-| `INSTALLER_TYPE` | `contrib` | Y | The test type (contrib or project) |
+| `INSTALLER_TYPE` | `contrib` | Y | The test type (contrib or composer-project) |
 | `TEST_RUNNER`| `phpunit` | Y | The test runner (phpunit or core) |
 | `PHP_BINARY` | `$(which php)` | Y | Path to PHP binary |
 | `DRUSH` | `$(which drush)`, fallbacks to `vendor/bin/drush` | Y | Path to drush binary. If Drush is not found it will be installed with composer |
@@ -136,6 +136,6 @@ jobs:
         run: TEST_RUNNER=core drupal-tr run-tests
 ```
 
-## Project installer
+## Composer-project installer
 
 @todo

@@ -1,0 +1,21 @@
+# Ignore project files that should not be in version control
+drush/sites/
+node_modules
+web/core
+web/libraries
+web/modules/contrib
+web/themes/contrib
+web/sites/default/files
+vendor
+
+# Ignore the folder created by PhpStorm
+.idea/*
+
+# Ignore OSX generated files
+._*
+.DS_Store
+
+!*.gitkeep
+!*.keepme
+# As this is project skeleton, we do not want to store composer.lock to version control
+composer.lock
