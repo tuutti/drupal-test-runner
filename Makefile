@@ -52,7 +52,7 @@ $(error "DRUPAL_DB_URL argument not set")
 endif
 
 define run_in_drupal
-	cd $(DRUPAL_ROOT) && $(1)
+	@cd $(DRUPAL_ROOT) && $(1)
 endef
 
 define step
