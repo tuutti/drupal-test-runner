@@ -3,6 +3,7 @@ ifeq ($(TEST_RUNNER_ROOT),)
 endif
 
 ifeq ($(TEST_RUNNER),phpunit)
+	PHPUNIT_CONFIG_FILE ?= $(TEST_RUNNER_ROOT)/phpunit.xml.dist
 	TEST_RUNNER_BIN ?= $(TEST_RUNNER_ROOT)/vendor/bin/phpunit
 endif
 
