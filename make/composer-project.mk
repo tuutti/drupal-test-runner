@@ -30,7 +30,7 @@ site-install:
 
 composer-install:
 	$(call step, Install composer dependencies)
-	$(call run_in_drupal $(COMPOSER) install)
+	$(call run_in_drupal, $(COMPOSER) install)
 
 config-import:
 	$(call step, Import config)
