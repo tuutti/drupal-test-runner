@@ -28,6 +28,7 @@ PHONY += site-install
 site-install:
 	$(call step, Installing Drupal)
 	$(call run_in_drupal, $(DRUSH) --yes -v site-install --db-url="$(DRUPAL_DB_URL)" $(SITE_INSTALL_ARGS))
+	$(call run_in_drupal, $(DRUSH) --yes en simpletest)
 
 composer-install:
 	$(call step, Install composer dependencies)
