@@ -99,11 +99,10 @@ jobs:
       - name: Setup Drupal
         run: |
           drupal-tr
-          # Symlink our test module
-          ln -s tests/fixtures/test-module $DRUPAL_ROOT/web/modules/custom
+          ln -s $GITHUB_WORKSPACE/tests/fixtures/test-module $DRUPAL_ROOT/web/modules/custom
 
       - name: Run tests using core test runner
-        run: TEST_RUNNER=core drupal-tr run-tests
+        run: TEST_RUNNER=core TEST_RUNNER_ROOT=$DRUPAL_ROOT/web drupal-tr run-tests
 
       - name: Run tests using phpunit test runner
         run: TEST_RUNNER=phpunit drupal-tr run-tests

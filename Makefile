@@ -14,13 +14,13 @@ endif
 
 DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
 
+ifeq ($(DRUPAL_BASE_URL),)
+	DRUPAL_BASE_URL ?= $(SIMPLETEST_BASE_URL)
+endif
+
 ifeq ($(TEST_RUNNER),core)
-	TEST_RUNNER_BIN ?= cd $(DRUPAL_ROOT) && $(PHP_BINARY) ./core/scripts/run-tests.sh
 	# Make sure test runner uses correct PHP binary.
 	TEST_RUNNER_ARGS ?= --color --verbose --php $(PHP_BINARY)
-ifneq ($(SIMPLETEST_BASE_URL),)
-	DRUPAL_BASE_URL = $(SIMPLETEST_BASE_URL)
-endif
 ifneq ($(DRUPAL_BASE_URL),)
 	TEST_RUNNER_ARGS += --url $(DRUPAL_BASE_URL)
 endif
@@ -31,9 +31,7 @@ endif
 endif
 
 ifeq ($(TEST_RUNNER),phpunit)
-	TEST_RUNNER_BIN ?= $(DRUPAL_ROOT)/vendor/bin/phpunit
 	TEST_RUNNER_ARGS ?= -c $(PHPUNIT_CONFIG_FILE)
-	PHPUNIT_CONFIG_FILE ?= $(SCRIPT_BASE_PATH)/phpunit.xml.dist
 # Filter by testsuites. For example unit,kernel.
 ifdef ($(DRUPAL_TESTSUITES))
 	TEST_RUNNER_ARGS += --testsuite $(DRUPAL_TESTSUITES)
@@ -52,7 +50,7 @@ $(error "DRUPAL_DB_URL argument not set")
 endif
 
 define run_in_drupal
-	cd $(DRUPAL_ROOT) && $(1)
+	@cd $(DRUPAL_ROOT) && $(1)
 endef
 
 define step

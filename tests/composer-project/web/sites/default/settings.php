@@ -774,13 +774,3 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $settings['config_sync_directory'] = '../config/sync';
-$databases['default']['default'] = array (
-  'database' => 'api_tools',
-  'username' => 'root',
-  'password' => 'kalakukko',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
