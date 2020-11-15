@@ -25,8 +25,11 @@ Available installers:
 - [contrib](#contrib-installer)
 - [composer-project](#composer-project-installer)
 
-- Run `drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
-- Run `drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
+### Setup Drupal
+`drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
+
+### Run tests
+`drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
 
 ## Configuration
 
