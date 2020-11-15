@@ -73,11 +73,11 @@ See [composer/installers](https://github.com/composer/installers) for available 
 
 Running `drupal-tr` will execute `make install` using [make/contrib.mk](make/contrib.mk). This will:
 
-- Install the Drupal to `DRUPAL_ROOT` path if `DRUPAL_ROOT/composer.json` file is not present
+- Install the Drupal to `DRUPAL_ROOT`
 - Install Drush with composer if `drush` executable is not found
 - Set `DRUPAL_MODULE_PATH` path to composer.json's repositories
 - Run composer install
-- Install Drupal core using `DRUPAL_INSTALL_PROFILE` (minimal by default) if `DRUPAL_ROOT/sites/default/settings.php` file is not present
+- Install Drupal using `DRUPAL_INSTALL_PROFILE` install profile
 
 #### Configuration
 
@@ -153,7 +153,7 @@ Running `drupal-tr` will execute `make install` using [make/composer-project.mk]
 
 - Run composer install in git root to build your project
 - Install Drush with composer if `drush` executable is not found
-- Install Drupal core using `DRUPAL_INSTALL_PROFILE` (minimal by default) or using existing configuration when `EXISTING_CONFIG` is set to `true`.
+- Install Drupal using `DRUPAL_INSTALL_PROFILE` or with existing configuration when `EXISTING_CONFIG` is set to `true`.
 
 #### Configuration
 
