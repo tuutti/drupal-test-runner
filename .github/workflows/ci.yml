@@ -4,11 +4,12 @@ env:
   MYSQL_ROOT_PASSWORD: drupal
   SIMPLETEST_DB: "mysql://drupal:drupal@mariadb:3306/drupal"
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
-  DRUPAL_MODULE_NAME: "test_module"
-  DRUPAL_CORE_VERSION: 9.0.x
 jobs:
   test-contrib:
     runs-on: ubuntu-latest
+    env:
+      DRUPAL_MODULE_NAME: "test_module"
+      DRUPAL_CORE_VERSION: 9.0.x
     strategy:
       fail-fast: true
       matrix:
@@ -49,6 +50,57 @@ jobs:
         run: |
           drupal-tr
           cp $GITHUB_WORKSPACE/tests/contrib/phpunit.xml.dist $PHPUNIT_CONFIG_FILE
+
+      - name: Run tests using core test runner
+        run: TEST_RUNNER=core drupal-tr run-tests
+
+      - name: Run tests using phpunit test runner
+        run: TEST_RUNNER=phpunit drupal-tr run-tests
+
+  test-composer-project:
+    runs-on: ubuntu-latest
+    env:
+      INSTALLER_TYPE: composer-project
+      DRUPAL_TEST_GROUPS: test_module
+    strategy:
+      fail-fast: true
+      matrix:
+        php-version: ['7.4']
+    container:
+      image: ghcr.io/tuutti/drupal-php-docker:${{ matrix.php-version }}
+
+    services:
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MYSQL_USER: drupal
+          MYSQL_PASSWORD: drupal
+          MYSQL_DATABASE: drupal
+          MYSQL_ROOT_PASSWORD: drupal
+        ports:
+          - 3306:3306
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set variables
+        # We need to override DRUPAL_ROOT to use our composer-project.
+        run: |
+          echo "DRUPAL_ROOT=$GITHUB_WORKSPACE/tests/composer-project" >> $GITHUB_ENV
+          echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
+
+      - name: Setup Drupal test runner
+        run: |
+          composer global config minimum-stability dev
+          composer global config repositories.0 path $GITHUB_WORKSPACE
+          composer global require tuutti/drupal-test-runner
+
+      - name: Setup Drupal
+        run: |
+          drupal-tr
+          # Symlink our test module
+          ln -s tests/fixtures/test-module $DRUPAL_ROOT/web/modules/custom
 
       - name: Run tests using core test runner
         run: TEST_RUNNER=core drupal-tr run-tests
