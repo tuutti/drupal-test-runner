@@ -87,7 +87,7 @@ jobs:
       - name: Set variables
         # We need to override DRUPAL_ROOT to use our composer-project.
         run: |
-          echo "DRUPAL_ROOT=$GITHUB_WORKSPACE/tests/composer-project" >> $GITHUB_ENV
+          echo "DRUPAL_ROOT=$GITHUB_WORKSPACE/tests/composer-project/web" >> $GITHUB_ENV
           echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
 
       - name: Setup Drupal test runner
