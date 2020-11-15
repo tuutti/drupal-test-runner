@@ -22,18 +22,16 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 
 ### PHPUnit
 
-Uses phpunit to run tests (default).
+Used by default. Attempts to load phpunit.xml.dist from git root.
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `PHPUNIT_CONFIG_FILE` | `git root/phpunit.xml.dist` | N | Path to phpunit config file |
 | `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `unit` or `kernel` |
 
-### Core (run-tests.sh)
+### Core
 
-Uses core's `run-tests.sh` to run tests.
-
-Set `TEST_RUNNER=core` to use this.
+Set `TEST_RUNNER=core` to use core's `run-tests.sh` to run tests.
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
