@@ -18,6 +18,27 @@ Provides a set of tools to make testing Drupal easier.
 This will create `drupal-tr` executable that works as a wrapper for our make commands. You can either call it directly
 from composer's binary folder or add composer's global bin dir to your `$PATH` variable: `PATH="$PATH:$HOME/.composer/vendor/bin"`.
 
+## Test runners
+
+### PHPUnit
+
+Uses phpunit to run tests (default).
+
+| Variable name | Default value | Required | Description |
+|---------------|---|---|--|
+| `PHPUNIT_CONFIG_FILE` | `git root/phpunit.xml.dist` | N | Path to phpunit config file |
+| `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `unit` or `kernel` |
+
+### Core (run-tests.sh)
+
+Uses core's `run-tests.sh` to run tests.
+
+Set `TEST_RUNNER=core` to use this.
+
+| Variable name | Default value | Required | Description |
+|---------------|---|---|--|
+| `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `PHPUnit-Kernel` |
+
 ## Configuration
 
 | Variable name | Default value | Required | Description |
@@ -29,21 +50,7 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 | `DRUSH` | `$(which drush)`, fallbacks to `vendor/bin/drush` | Y | Path to drush binary. If Drush is not found it will be installed with composer |
 | `DRUPAL_BASE_URL` | Fallbacks to `SIMPLETEST_BASE_URL` if set | N | The base url (required for functional tests) |
 | `SIMPLETEST_BASE_URL` | | N | Same as `DRUPAL_BASE_URL` |
-
-### Test runners
-
-#### PHPUnit
-
-| Variable name | Default value | Required | Description |
-|---------------|---|---|--|
-| `PHPUNIT_CONFIG_FILE` | `git root/phpunit.xml.dist` | N | Path to phpunit config file |
-| `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `unit` or `kernel` |
-
-#### Core (run-tests.sh)
-
-| Variable name | Default value | Required | Description |
-|---------------|---|---|--|
-| `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `PHPUnit-Kernel` |
+| `TEST_RUNNER_ROOT` | Defaults to `DRUPAL_ROOT` | N | |
 
 ## Contrib installer
 
@@ -72,7 +79,7 @@ Running `drupal-tr` will execute `make install` using [make/contrib.mk](make/con
 - Run composer install
 - Install Drupal core using `DRUPAL_INSTALL_PROFILE` (minimal by default) if `DRUPAL_ROOT/sites/default/settings.php` file is not present
 
-#### Contrib configuration
+#### Configuration
 
 | Variable name | Default value | Required | Descriptiion |
 |---------------|---|---| -- |
@@ -138,4 +145,25 @@ jobs:
 
 ## Composer-project installer
 
-@todo
+Use `composer-project` when your project is built with composer, like [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project).
+
+### Usage
+
+Running `drupal-tr` will execute `make install` using [make/composer-project.mk](make/composer-project.mk). This will:
+
+- Run composer install in git root to build your project
+- Install Drush with composer if `drush` executable is not found
+- Install Drupal core using `DRUPAL_INSTALL_PROFILE` (minimal by default) or using existing configuration when `EXISTING_CONFIG` is set to `true`.
+
+#### Configuration
+
+| Variable name | Default value | Required | Descriptiion |
+|---------------|---|---| -- |
+| `DRUPAL_INSTALL_PROFILE` | minimal | The install profile to install Drupal with |
+| `DRUPAL_ROOT` | `git root` | N | The git root |
+| `DRUPAL_TEST_GROUPS` | `$DRUPAL_MODULE_NAME ` | Y | The test groups. Comma separated list of group names (from `@group` annotation) |
+
+
+## Running tests
+
+`drupal-tr run-tests`
