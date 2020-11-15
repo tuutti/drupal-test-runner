@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/tuutti/drupal-test-runner/workflows/CI/badge.svg)](https://github.com/tuutti/drupal-test-runner/actions)
 
-Provides a list of `make` commands to make testing Drupal easier.
+Provides a collection of `make` commands to make testing Drupal easier.
 
 ## Requirements
 
@@ -18,9 +18,7 @@ Provides a list of `make` commands to make testing Drupal easier.
 This will create `drupal-tr` command that works as a wrapper for our make commands. You can either call it directly
 from composer's binary folder or add composer's global bin dir to your `$PATH` variable: `PATH="$PATH:$HOME/.composer/vendor/bin"`.
 
-## Usage
-
-### Shared variables
+## Configuration
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
@@ -32,24 +30,24 @@ from composer's binary folder or add composer's global bin dir to your `$PATH` v
 | `DRUPAL_BASE_URL` | Fallbacks to `SIMPLETEST_BASE_URL` if set | N | The base url (required for functional tests) |
 | `SIMPLETEST_BASE_URL` | | N | Same as `DRUPAL_BASE_URL` |
 
-### PHPUnit specific variables
+### PHPUnit
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `PHPUNIT_CONFIG_FILE` | `git root/phpunit.xml.dist` | N | Path to phpunit config file |
 | `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `unit` or `kernel` |
 
-### Core's test runner specific variables
+### Core's test runner
 
 | Variable name | Default value | Required | Description |
 |---------------|---|---|--|
 | `DRUPAL_TESTSUITES` | | N | Limit tests to certain types, like `PHPUnit-Kernel` |
 
+## Usage
+
 `drupal-test-runner` provides two different installers `contrib` and `project`.
 
-### 1. Contrib
-
-### Test runner specific variables
+### Test type `contrib`
 
 | Variable name | Default value | Required | Descriptiion |
 |---------------|---|---| -- |
@@ -111,6 +109,6 @@ jobs:
         run: TEST_RUNNER=core drupal-tr run-tests
 ```
 
-### 2. Project
+### 2. Test type `project`
 
 @todo
