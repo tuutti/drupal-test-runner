@@ -14,12 +14,13 @@ endif
 
 DRUPAL_ROOT ?= $(SCRIPT_BASE_PATH)/../drupal
 
+ifeq ($(DRUPAL_BASE_URL),)
+	DRUPAL_BASE_URL ?= $(SIMPLETEST_BASE_URL)
+endif
+
 ifeq ($(TEST_RUNNER),core)
 	# Make sure test runner uses correct PHP binary.
 	TEST_RUNNER_ARGS ?= --color --verbose --php $(PHP_BINARY)
-ifneq ($(SIMPLETEST_BASE_URL),)
-	DRUPAL_BASE_URL = $(SIMPLETEST_BASE_URL)
-endif
 ifneq ($(DRUPAL_BASE_URL),)
 	TEST_RUNNER_ARGS += --url $(DRUPAL_BASE_URL)
 endif
