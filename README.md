@@ -25,8 +25,9 @@ Available installers:
 - [contrib](#contrib-installer)
 - [composer-project](#composer-project-installer)
 
-- Run `drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
-- Run `drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
+- `drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
+- `drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
+- `drupal-tr run-drush-server` to start a drush server listening on `DRUPAL_BASE_URL`.
 
 ## Configuration
 
@@ -111,7 +112,7 @@ jobs:
 
       - name: Setup Drupal test runner
         run: |
-          composer global require tuutti/drupal-test-runner ~1.0
+          composer global require tuutti/drupal-test-runner ^1.0
 
       - name: Setup Drupal
         run: drupal-tr

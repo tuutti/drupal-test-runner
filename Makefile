@@ -40,6 +40,7 @@ endif
 
 include make/$(INSTALLER_TYPE).mk
 include make/tests.mk
+include make/utility.mk
 
 # Call drush to see if it fails (if we're running Drush launcher for example) and fallback
 # to vendor/bin/drush target to indicate that drush needs to be installed with composer.
