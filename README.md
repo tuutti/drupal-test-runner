@@ -31,6 +31,9 @@ Available installers:
 ### Run tests
 `drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
 
+### Utility tools
+`drupal-tr run-drush-server` to start a drush server listening on `DRUPAL_BASE_URL`.
+
 ## Configuration
 
 | Variable name | Default value | Required | Description |
@@ -114,7 +117,7 @@ jobs:
 
       - name: Setup Drupal test runner
         run: |
-          composer global require tuutti/drupal-test-runner ~1.0
+          composer global require tuutti/drupal-test-runner ^1.0
 
       - name: Setup Drupal
         run: drupal-tr
