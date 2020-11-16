@@ -65,7 +65,7 @@ See [composer/installers](https://github.com/composer/installers) for available 
 
 ### Contrib installer configuration
 
-| Variable name | Default value | Required | Descriptiion |
+| Variable name | Default value | Required | Description |
 |---------------|---|---| -- |
 | `DRUPAL_MODULE_NAME` | | Y | The module/theme name |
 | `DRUPAL_INSTALL_PROFILE` | minimal | N | The install profile used to install Drupal |
@@ -200,7 +200,7 @@ jobs:
 
 ### Configuration
 
-| Variable name | Default value | Required | Descriptiion |
+| Variable name | Default value | Required | Description |
 |---------------|---|---| -- |
 | `DRUPAL_INSTALL_PROFILE` | minimal | N | The install profile used to install Drupal |
 | `EXISTING_CONFIG` | false | N | Installs Drupal using existing configuration |
