@@ -84,7 +84,7 @@ env:
   MYSQL_ROOT_PASSWORD: drupal
   SIMPLETEST_DB: "mysql://drupal:drupal@mariadb:3306/drupal"
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
-  DRUPAL_MODULE_NAME: "api_tools"
+  DRUPAL_MODULE_NAME: "your_module"
   DRUPAL_CORE_VERSION: 9.0.x
 jobs:
   test-contrib:
@@ -124,6 +124,34 @@ jobs:
 
       - name: Run tests
         run: TEST_RUNNER=core drupal-tr run-tests
+```
+
+### Contrib installer Gitlab ci example
+
+```yml
+variables:
+  DRUPAL_MODULE_NAME: your_module
+  SIMPLETEST_BASE_URL: http://127.0.0.1:8080
+  DRUPAL_CORE_VERSION: 8.9.x
+  DRUPAL_INSTALL_PROFILE: minimal
+  MYSQL_DATABASE: drupal
+  MYSQL_ROOT_PASSWORD: drupal
+  SIMPLETEST_DB: mysql://root:drupal@mariadb/drupal
+  TEST_RUNNER: core
+
+before_script:
+- export PATH=$HOME/.composer/vendor/bin:$PATH
+- composer global require tuutti/drupal-test-runner ^1.0
+- drupal-tr
+- drupal-tr run-drush-server &
+
+services:
+- mariadb:latest
+
+test:7.3:
+  image: registry.gitlab.com/tuutti/drupal-php-docker:7.3
+  script:
+    - drupal-tr run-tests
 ```
 
 ## Composer-project installer
