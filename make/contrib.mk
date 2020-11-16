@@ -39,9 +39,11 @@ set-composer-repositories:
 	$(call step, Set Composer repositories)
 	$(call run_in_drupal, $(COMPOSER) config repositories.0 path $(DRUPAL_MODULE_PATH))
 
-PHONY += set-composer-repositories
+PHONY += composer-install
 composer-install:
 	$(call step, Install composer dependencies)
 	$(call run_in_drupal, $(COMPOSER) install)
 	$(call run_in_drupal, $(COMPOSER) require drupal/$(DRUPAL_MODULE_NAME))
+	$(call step, Upgrade phpunit)
+	$(call run_in_drupal, $(COMPOSER) run-script drupal-phpunit-upgrade)
 
