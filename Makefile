@@ -38,9 +38,7 @@ ifdef ($(DRUPAL_TESTSUITES))
 endif
 endif
 
-# Call drush to see if it fails (if we're running Drush launcher for example) and fallback
-# to vendor/bin/drush target to indicate that drush needs to be installed with composer.
-DRUSH = $(shell drush > /dev/null 2>&1 && which drush 2>/dev/null || echo "$(DRUPAL_ROOT)/vendor/bin/drush")
+DRUSH = $(DRUPAL_ROOT)/vendor/bin/drush
 DRUSH_VERSION ?= 10.0
 
 include make/$(INSTALLER_TYPE).mk
