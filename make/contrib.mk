@@ -18,17 +18,16 @@ ifeq ($(TEST_RUNNER),core)
 	TEST_RUNNER_ARGS += $(DRUPAL_TEST_GROUPS)
 endif
 
-install: $(DRUPAL_ROOT)/composer.json $(DRUSH) set-composer-repositories composer-install $(DRUPAL_ROOT)/sites/default/settings.php
-
-# Install drush if not already installed
-$(DRUSH):
-	$(call step, Installing Drush)
-	$(call run_in_drupal, $(COMPOSER) require drush/drush)
+install: $(DRUPAL_ROOT)/composer.json set-composer-repositories composer-install $(DRUSH) $(DRUPAL_ROOT)/sites/default/settings.php
 
 $(DRUPAL_ROOT)/sites/default/settings.php:
 	$(call step, Installing Drupal)
 	$(call run_in_drupal, $(DRUSH) --yes -v site-install $(DRUPAL_INSTALL_PROFILE) --db-url="$(DRUPAL_DB_URL)")
 	$(call run_in_drupal, $(DRUSH) en $(DRUPAL_MODULE_NAME) simpletest)
+
+$(DRUSH):
+	$(call step, Installing Drush)
+	$(call run_in_drupal, $(COMPOSER) require drush/drush ^$(DRUSH_VERSION))
 
 $(DRUPAL_ROOT)/composer.json:
 	$(call step, Cloning Drupal core)
