@@ -4,7 +4,7 @@ DRUPAL_ROOT = $(SCRIPT_BASE_PATH)
 
 ifeq ($(EXISTING_CONFIG),true)
 	SITE_INSTALL_ARGS += --existing-config
-	INSTALL_TARGETS =+ config-import
+	INSTALL_TARGETS += config-import
 else
 	SITE_INSTALL_ARGS += $(or $(DRUPAL_INSTALL_PROFILE),minimal)
 endif
