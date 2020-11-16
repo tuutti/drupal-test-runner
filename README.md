@@ -25,9 +25,14 @@ Available installers:
 - [contrib](#contrib-installer)
 - [composer-project](#composer-project-installer)
 
-- `drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
-- `drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
-- `drupal-tr run-drush-server` to start a drush server listening on `DRUPAL_BASE_URL`.
+### Setup Drupal
+`drupal-tr` to install Drupal with selected installer (`INSTALLER_TYPE`)
+
+### Run tests
+`drupal-tr run-tests` to run tests with selected test runner (`TEST_RUNNER`)
+
+### Utility tools
+`drupal-tr run-drush-server` to start a drush server listening on `DRUPAL_BASE_URL`.
 
 ## Configuration
 
