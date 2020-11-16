@@ -160,6 +160,44 @@ Use `composer-project` installer to test Drupal sites that can be installed with
 
 Installs Drupal using `DRUPAL_INSTALL_PROFILE` or existing config when `EXISTING_CONFIG` is set to `true`.
 
+### Composer-project installer Github actions example
+
+```yml
+on: [push]
+name: CI
+env:
+  SIMPLETEST_DB: "mysql://drupal:drupal@db:3306/drupal"
+  SIMPLETEST_BASE_URL: "http://127.0.0.1:8888"
+  EXISTING_CONFIG: true
+  INSTALLER_TYPE: composer-project
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php-version: ['7.4']
+    container:
+      image: ghcr.io/tuutti/drupal-php-docker:${{ matrix.php-version }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set variables
+        run: |
+          echo "$HOME/.config/composer/vendor/bin" >> $GITHUB_PATH
+      - name: Setup drupal
+        run: |
+          composer global require tuutti/drupal-test-runner
+          drupal-tr
+
+      - name: Run PHPUnit tests
+        run: |
+          drupal-tr run-drush-server &
+          drupal-tr run-tests
+```
+
 ### Configuration
 
 | Variable name | Default value | Required | Descriptiion |
